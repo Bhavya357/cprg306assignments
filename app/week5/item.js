@@ -1,11 +1,16 @@
 import React from 'react';
-
-const Item = ({ name, quantity, category }) => {
+ 
+function Item({ item }) {
   return (
     <li className="border p-2 mb-2">
-      <strong>{name}</strong> - Quantity: {quantity}, Category: {category}
+      <div className="flex justify-between">
+        <div>
+          <h3 className="text-lg">{item.name}</h3>
+          <p className="text-sm text-gray-600">{`Quantity: ${item.quantity}, Category: ${item.category}`}</p>
+        </div>
+      </div>
     </li>
   );
-};
-
+}
+ 
 export default Item;
