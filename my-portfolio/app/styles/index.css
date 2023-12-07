@@ -1,0 +1,24 @@
+
+/* styles/index.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+.container {
+  max-width: 800px;
+}
+
+a {
+  color: #3182ce;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #2c5282;
+}
+

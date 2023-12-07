@@ -1,54 +1,45 @@
-// /app/week5/item-list.js
-"use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Item from './item';
+import items from './items.json';
 
 const ItemList = () => {
   const [sortBy, setSortBy] = useState('name');
-  const [items, setItems] = useState([]);
 
-  useEffect(() => {
-    // Fetch the items from the JSON file
-    fetch('/app/week5/items.json') // Adjust the path if needed
-      .then((response) => response.json())
-      .then((data) => setItems(data))
-      .catch((error) => console.error('Error fetching items:', error));
-  }, []);
-
-  // Sort the Items
-  const sortedItems = items.slice().sort((a, b) => {
+  const sortItems = (a, b) => {
     if (sortBy === 'name') {
       return a.name.localeCompare(b.name);
     } else if (sortBy === 'category') {
       return a.category.localeCompare(b.category);
-    } else if (sortBy === 'grouped') {
-      return a.category.localeCompare(b.category) || a.name.localeCompare(b.name);
     }
-  });
+  };
 
-  // Create Sort Buttons
-  const renderSortButton = (sortOption) => (
-    <button
-      key={sortOption}
-      className={`mr-2 px-3 py-1 rounded focus:outline-none ${
-        sortBy === sortOption ? 'bg-blue-500 text-white' : 'bg-gray-300'
-      }`}
-      onClick={() => setSortBy(sortOption)}
-    >
-      {sortOption}
-    </button>
-  );
+  const groupByCategory = () => {
+    // Implement grouping logic here if needed
+  };
 
-  // Render the Items
   return (
     <div>
       <div className="mb-4">
-        {renderSortButton('name')}
-        {renderSortButton('category')}
-        {renderSortButton('grouped')}
+        <button
+          className={`mr-2 p-2 ${
+            sortBy === 'name' ? 'bg-blue-500 text-white' : 'bg-gray-300'
+          }`}
+          onClick={() => setSortBy('name')}
+        >
+          Sort by Name
+        </button>
+        <button
+          className={`p-2 ${
+            sortBy === 'category' ? 'bg-blue-500 text-white' : 'bg-gray-300'
+          }`}
+          onClick={() => setSortBy('category')}
+        >
+          Sort by Category
+        </button>
+        {/* Add a third button for grouping, if you decide to implement the extra challenge */}
       </div>
       <ul>
-        {sortedItems.map((item) => (
+        {items.sort(sortItems).map((item) => (
           <Item key={item.id} {...item} />
         ))}
       </ul>
